@@ -1,0 +1,35 @@
+def job_scheduling(jobs):
+    # Sort jobs based on deadlines in ascending order
+    sorted_jobs = sorted(jobs, key=lambda x: x[1])
+
+    schedule = []
+    current_time = 0
+
+    for job in sorted_jobs:
+        job_id, deadline, duration = job
+
+        if current_time + duration <= deadline:
+            # Job can be scheduled without missing the deadline
+            schedule.append(job_id)
+            current_time += duration
+
+    return schedule
+# User input for the number of jobs
+num_jobs = int(input("Enter the number of jobs: "))
+
+jobs = []
+
+# User input for each job's details
+for i in range(num_jobs):
+    job_id = input("Enter job ID: ")
+    deadline = int(input("Enter deadline for job {}: ".format(job_id)))
+    duration = int(input("Enter duration for job {}: ".format(job_id)))
+    jobs.append((job_id, deadline, duration))
+
+# Schedule the jobs using the Greedy algorithm
+schedule = job_scheduling(jobs)
+
+# Print the scheduled jobs
+print("Scheduled Jobs:")
+for job_id in schedule:
+    print(job_id)
